@@ -6,7 +6,7 @@ TUI Client for Torrent Paradise
 
 [Torrent Paradise](https://torrent-paradise.ml/)  is Decentralized DHT Torrent Search Site . 
 
-You can see it's Source Code at [github.com/urbanguacamole/torrent-paradise](https://github.com/urbanguacamole/torrent-paradise) .
+You can see it's Source Code at [github.com/urbanguacamole/torrent-paradise](https://github.com/urbanguacamole/torrent-paradise)
 
 ## Installation
 
