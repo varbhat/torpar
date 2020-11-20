@@ -13,9 +13,7 @@ func searchui(g *gocui.Gui) error {
 	if err := g.SetKeybinding("", gocui.KeyCtrlC, gocui.ModNone, quit); err != nil {
 		log.Println(err)
 	}
-	if err := g.SetKeybinding("", gocui.KeyEsc, gocui.ModNone, quit); err != nil {
-		log.Println(err)
-	}
+
 	// Header
 	if header, err := g.SetView("header", maxX/2-9, maxY/2-6, maxX/2+9, maxY/2-3); err != nil {
 		if err != gocui.ErrUnknownView {
@@ -71,7 +69,7 @@ func searchui(g *gocui.Gui) error {
 		}
 		srhelp.Frame = true
 		srhelp.Wrap = true
-		fmt.Fprintln(srhelp, "Press <enter> / → to Search , <esc> / ← / Ctrl-c  to Quit , <home> for About Menu")
+		fmt.Fprintln(srhelp, "Press <enter> / → to Search , ← / Ctrl-c  to Quit , <home> for About Menu")
 
 	}
 

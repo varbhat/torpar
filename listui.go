@@ -84,9 +84,6 @@ func searchlisttor(g *gocui.Gui) error {
 		fmt.Println(err)
 	}
 
-	if err := g.SetKeybinding("tl", gocui.KeyEsc, gocui.ModNone, backtoSearch); err != nil {
-		fmt.Println(err)
-	}
 	maxX, maxY := g.Size()
 
 	// Torrent List Box

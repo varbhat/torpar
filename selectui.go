@@ -17,9 +17,6 @@ func selectfunc(g *gocui.Gui) error {
 		fmt.Println(err)
 	}
 
-	if err := g.SetKeybinding("selwid", gocui.KeyEsc, gocui.ModNone, backtoTorlist); err != nil {
-		fmt.Println(err)
-	}
 	maxX, maxY := g.Size()
 
 	// Select Widget

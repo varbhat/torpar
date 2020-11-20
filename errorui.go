@@ -11,10 +11,6 @@ func errorfunc(g *gocui.Gui) error {
 		fmt.Println(err)
 	}
 
-	if err := g.SetKeybinding("errorwid", gocui.KeyEsc, gocui.ModNone, backtoSearch); err != nil {
-		return err
-	}
-
 	maxX, maxY := g.Size()
 
 	// Error Widget
@@ -48,7 +44,7 @@ func errorfunc(g *gocui.Gui) error {
 		}
 		errorhelpwid.Frame = true
 		errorhelpwid.Wrap = true
-		fmt.Fprintln(errorhelpwid, "Press <esc> / <enter> / ← to go back to Search , Ctrl-c / (q) to Quit")
+		fmt.Fprintln(errorhelpwid, "Press <enter> / ← to go back to Search , Ctrl-c / (q) to Quit")
 	}
 	return nil
 }
