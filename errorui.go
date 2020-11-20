@@ -10,6 +10,11 @@ func errorfunc(g *gocui.Gui) error {
 	if err := g.SetKeybinding("", gocui.KeyCtrlC, gocui.ModNone, quit); err != nil {
 		fmt.Println(err)
 	}
+
+	if err := g.SetKeybinding("errorwid", gocui.KeyEsc, gocui.ModNone, backtoSearch); err != nil {
+		return err
+	}
+
 	maxX, maxY := g.Size()
 
 	// Error Widget
@@ -21,9 +26,6 @@ func errorfunc(g *gocui.Gui) error {
 			return err
 		}
 
-		if err := g.SetKeybinding("errorwid", gocui.KeyEsc, gocui.ModNone, backtoSearch); err != nil {
-			return err
-		}
 		if err := g.SetKeybinding("errorwid", gocui.KeyEnter, gocui.ModNone, backtoSearch); err != nil {
 			return err
 		}
