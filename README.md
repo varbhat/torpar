@@ -54,4 +54,4 @@ Usage of torpar:
 `torpar` also shows every navigation keys at each TUI views so that thou can use `torpar` very easily.
 
 ## License
-[GPL-v3](https://github.com/varbhat/torpar/blob/main/LICENSE)
+[GPL-v3](LICENSE)
