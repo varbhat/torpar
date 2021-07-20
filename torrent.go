@@ -33,7 +33,7 @@ func gentrackers() {
 		return
 	}
 	defer trackersresponse.Body.Close()
-	
+
 	trackers, err := ioutil.ReadAll(trackersresponse.Body)
 	if err != nil {
 		return

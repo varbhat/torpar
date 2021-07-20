@@ -2,8 +2,9 @@ package main
 
 import (
 	"errors"
-	flag "github.com/spf13/pflag"
 	"os"
+
+	flag "github.com/spf13/pflag"
 )
 
 func init() {

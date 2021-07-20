@@ -4,14 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/cheynewallace/tabby"
-	"github.com/jroimartin/gocui"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 	"text/tabwriter"
+
+	"github.com/cheynewallace/tabby"
+	"github.com/jroimartin/gocui"
 )
 
 func maxstring(str string, length int) string {

@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
+	"text/tabwriter"
+
 	"github.com/atotto/clipboard"
 	"github.com/cheynewallace/tabby"
 	"github.com/jroimartin/gocui"
 	"github.com/skratchdot/open-golang/open"
-	"strconv"
-	"strings"
-	"text/tabwriter"
 )
 
 func selectfunc(g *gocui.Gui) error {
@@ -105,7 +106,7 @@ func openmagnet(g *gocui.Gui, v *gocui.View) error {
 	return nil
 }
 
-func selectit(g *gocui.Gui, v *gocui.View) error {
+func selectit(g *gocui.Gui, v *gocui.View) (err error) {
 	_, cy := v.Cursor()
 	selline, err := v.Line(cy)
 	selArr := strings.Fields(selline)

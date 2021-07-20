@@ -3,9 +3,10 @@ package main
 import (
 	"encoding/csv" // csv encoding support
 	"fmt"
-	"github.com/jroimartin/gocui"
 	"os"
 	"strconv"
+
+	"github.com/jroimartin/gocui"
 )
 
 func torrentdatawrite(g *gocui.Gui) error {

@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/jroimartin/gocui"
 	"log"
+
+	"github.com/jroimartin/gocui"
 )
 
 func searchui(g *gocui.Gui) error {
