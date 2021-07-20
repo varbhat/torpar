@@ -2,7 +2,7 @@
 <p align="center">TUI Client for Torrent Paradise</p>
 
 ## Introduction
-`torpar` is TUI client to [Torrent Paradise](https://torrent-paradise.ml/) .
+`torpar` is TUI client for [Torrent Paradise](https://torrent-paradise.ml/) .
 
 [Torrent Paradise](https://torrent-paradise.ml/)  is Decentralized DHT Torrent Search Site ([Source](https://github.com/urbanguacamole/torrent-paradise))
 
