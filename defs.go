@@ -28,6 +28,34 @@ type Torrent struct {
 	Leechs int     `json:"l"`
 }
 
+type AscTorrents []Torrent
+
+func (t AscTorrents) Len() int {
+	return len(t)
+}
+
+func (t AscTorrents) Less(i, j int) bool {
+	return t[i].Length < t[j].Length
+}
+
+func (t AscTorrents) Swap(i, j int) {
+	t[i], t[j] = t[j], t[i]
+}
+
+type DeTorrents []Torrent
+
+func (t DeTorrents) Len() int {
+	return len(t)
+}
+
+func (t DeTorrents) Less(i, j int) bool {
+	return t[i].Length > t[j].Length
+}
+
+func (t DeTorrents) Swap(i, j int) {
+	t[i], t[j] = t[j], t[i]
+}
+
 // color strings required to color text in terminal
 var (
 	term_red   string = "\u001b[0;31m" // Red color

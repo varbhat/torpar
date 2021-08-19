@@ -118,6 +118,12 @@ func searchlisttor(g *gocui.Gui) error {
 		if err := g.SetKeybinding("tl", 'q', gocui.ModNone, quit); err != nil {
 			return err
 		}
+		if err := g.SetKeybinding("tl", 'a', gocui.ModNone, sortAsc); err != nil {
+			return err
+		}
+		if err := g.SetKeybinding("tl", 'd', gocui.ModNone, sortDec); err != nil {
+			return err
+		}
 		var cv *gocui.View
 		if cv, err = g.SetCurrentView("tl"); err != nil {
 			return err
@@ -154,7 +160,7 @@ func searchlisttor(g *gocui.Gui) error {
 		}
 		tlhelp.Frame = false
 		tlhelp.Wrap = true
-		fmt.Fprintf(tlhelp, "use ↑ ↓ to navigate, <enter> or → to select , ← to go back to search , (q) or Ctrl-c to quit")
+		fmt.Fprintf(tlhelp, "use ↑ ↓ to navigate, <enter> or → to select , ← to go back to search , (a) to Ascending-Sort , (d) to Descending-Sort and (q) or Ctrl-c to quit")
 
 	}
 
