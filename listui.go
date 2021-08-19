@@ -118,7 +118,8 @@ func searchlisttor(g *gocui.Gui) error {
 		if err := g.SetKeybinding("tl", 'q', gocui.ModNone, quit); err != nil {
 			return err
 		}
-		if _, err := g.SetCurrentView("tl"); err != nil {
+		var cv *gocui.View
+		if cv, err = g.SetCurrentView("tl"); err != nil {
 			return err
 		}
 
@@ -135,6 +136,15 @@ func searchlisttor(g *gocui.Gui) error {
 					term_red+"L:"+strconv.Itoa(eachtorrent.Leechs)+term_res)
 			}
 			t.Print()
+		}
+
+		for mc := 0; mc <= selid+1; mc++ {
+			if ccerr := cv.SetCursor(0, mc); ccerr != nil {
+				ox, oy := cv.Origin()
+				if soerr := cv.SetOrigin(ox, oy+1); soerr != nil {
+					return soerr
+				}
+			}
 		}
 	}
 

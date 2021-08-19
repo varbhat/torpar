@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/atotto/clipboard v0.1.4
 	github.com/cheynewallace/tabby v1.1.1
-	github.com/jroimartin/gocui v0.4.0
+	github.com/jroimartin/gocui v0.5.0
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/nsf/termbox-go v1.1.1 // indirect
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
