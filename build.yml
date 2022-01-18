@@ -1,0 +1,42 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    if: ${{ github.owner }} == "varbhat"
+    runs-on: ubuntu-latest
+
+    container:
+      image: "ghcr.io/varbhat/void-container:glibc"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Prepare container
+        run: |
+          xbps-install -Syu || xbps-install -yu xbps
+          xbps-install -yu
+      - name: Install Packages
+        run: xbps-install -Sy git wget bash go nodejs github-cli
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build torpar for Linux (amd64 and arm64) and Win (amd64)
+        run: |
+          go mod tidy
+          GOOS="linux" GOARCH="amd64" go build -tags netgo -trimpath  --buildmode=pie -ldflags '-s -w' -o build/torpar-linux-amd64
+          GOOS="linux" GOARCH="arm64" go build -tags netgo -trimpath  --buildmode=pie -ldflags '-s -w' -o build/torpar-linux-arm64
+          GOOS="darwin" GOARCH="amd64" go build -tags netgo -trimpath  --buildmode=pie -ldflags '-s -w' -o build/torpar-darwin-amd64
+          GOOS="darwin" GOARCH="arm64" go build -tags netgo -trimpath  --buildmode=pie -ldflags '-s -w' -o build/torpar-darwin-arm64
+          GOOS="windows" GOARCH="amd64" go build -tags netgo -trimpath  --buildmode=pie -ldflags '-s -w' -o build/torpar-win-amd64.exe
+      - name: Generate SHA256 Checksum
+        run: |
+          cd build && sha256sum -b * > checksums_sha256.txt
+          cd ..
+      - name: Publish Releases
+        run: |
+          gh config set prompt disabled
+          gh release create $(git tag -l | tail -n1) -t $(git tag -l | tail -n1) -p build/*
