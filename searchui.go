@@ -22,7 +22,7 @@ func searchui(g *gocui.Gui) error {
 		}
 		header.Frame = false
 		fmt.Fprintln(header, "   Search the")
-		fmt.Fprintln(header, term_yell, "Torrent Paradise", term_res)
+		fmt.Fprintln(header, term_yell, "Knaben Database", term_res)
 	}
 
 	// Input Box

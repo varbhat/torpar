@@ -1,10 +1,8 @@
 <h1 align="center">torpar</h1> 
-<p align="center">TUI Client for Torrent Paradise</p>
+<p align="center">TUI Client for <a href="https://knaben.org">Knaben Database</a></p>
 
 ## Introduction
-`torpar` is TUI client for [Torrent Paradise](https://torrent-paradise.ml/) .
-
-[Torrent Paradise](https://torrent-paradise.ml/)  is Decentralized DHT Torrent Search Site ([Source](https://github.com/urbanguacamole/torrent-paradise))
+`torpar` is a TUI client for [Knaben Database](https://knaben.org), a torrent search engine aggregating multiple indexers via Elasticsearch.
 
 ## Installation
 
@@ -16,7 +14,7 @@ go install github.com/varbhat/torpar@latest
 
 ## Features
 
-* Search the [Torrent Paradise](https://torrent-paradise.ml/)
+* Search the [Knaben Database](https://knaben.org)
 * Navigate the Search Results
 * Get Details of the Search Result
 * Copy Magnet Link of Search Result into Device Clipboard
@@ -30,7 +28,7 @@ go install github.com/varbhat/torpar@latest
 ```
 Usage of torpar:
   -a, --apiurl string   API Endpoint URL
-                         (default https://torrent-paradise.ml/api/search?q=)
+                         (default https://api.knaben.org/v1)
   -f, --file string     File Path to write Data(csv) into
   -q, --query string    Search Query
   -l, --tlist string    URL to tracker list

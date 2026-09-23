@@ -41,25 +41,20 @@ func aboutfunc(g *gocui.Gui) error {
 		fmt.Fprint(aboutwid, term_green, "About! ->\n\n", term_res)
 		fmt.Fprint(aboutwid, term_green+"About Torpar ->\n"+term_res)
 
-		abouttptext := `• TorPar is TUI client for Torrent Paradise
-• Torrent Paradise is Open-Source DHT Torrent Search Engine
+		abouttptext := `• TorPar is a TUI client for searching torrents
+• Now powered by the Knaben Database API
 • TorPar is FLOSS and is licensed under GPLv3
 • Source code at https://github.com/varbhat/torpar`
 
 		fmt.Fprint(aboutwid, abouttptext)
 
-		fmt.Fprint(aboutwid, term_green, "\n\nAbout Torrent Paradise Search Engine ->\n", term_res)
+		fmt.Fprint(aboutwid, term_green, "\n\nAbout Knaben Database ->\n", term_res)
 
-		abouttpstext := `• Fresh and rich torrent index
-• New torrents identified quickly via multiple RSS feeds
-• Obscure torrents discovered through DHT
-• Seed/Leech counts constantly refreshed
-• privacy preserving, not-in-your-face ads
-• donate and vote on future features
-• Source Code at https://github.com/urbanguacamole/torrent-paradise
-• Send suggestions to urban-guacamole (at) protonmail.com
-• Want to report a copyright violation? See copyright at https://torrent-paradise.ml/copyright.html`
-		fmt.Fprint(aboutwid, abouttpstext)
+		aboutknabentext := `• Aggregates torrents from multiple indexers
+• Fast Elasticsearch-backed search
+• API docs at https://knaben.org/api/v1/
+• Website at https://knaben.org`
+		fmt.Fprint(aboutwid, aboutknabentext)
 
 		aboutwid.MoveCursor(maxX-1, 0, true)
 	}

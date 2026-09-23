@@ -8,6 +8,19 @@ import (
 	"strings"
 )
 
+// magnetFor returns the best magnet URL for a torrent.
+// Prefers the ready-made magnetUrl from Knaben; falls back to building
+// one from the hash + fetched trackerurl.
+func magnetFor(t Torrent) string {
+	if t.MagnetUrl != "" {
+		return t.MagnetUrl
+	}
+	if t.Hash != "" {
+		return magnetheader + t.Hash + trackerurl
+	}
+	return ""
+}
+
 // Fetch List of Best Public Torrent Trackers Available and create trackerlist out of it.
 func gentrackers() {
 	// Different URLs and options to fetch trackers from

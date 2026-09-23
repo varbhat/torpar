@@ -7,7 +7,7 @@ import (
 // Declare Global Variables
 const magnetheader string = "magnet:?xt=urn:btih:"
 
-var apistr string = "https://torrent-paradise.ml/api/search?q="
+var apistr string = "https://api.knaben.org/v1"
 var trackerurl string        // tracker list in url
 var torrents []Torrent       // Array of Torrent
 var query string             // Query String
@@ -21,11 +21,13 @@ var waitforme sync.WaitGroup // used in some functions to wait for gentorrents t
 
 // Structure of Torrent
 type Torrent struct {
-	Id     string  `json:"id"`
-	Text   string  `json:"text"`
-	Length float64 `json:"len"`
-	Seeds  int     `json:"s"`
-	Leechs int     `json:"l"`
+	Id        string `json:"id"`
+	Title     string `json:"title"`
+	Bytes     int64  `json:"bytes"`
+	Seeders   int    `json:"seeders"`
+	Peers     int    `json:"peers"`
+	MagnetUrl string `json:"magnetUrl"`
+	Hash      string `json:"hash"`
 }
 
 type AscTorrents []Torrent
@@ -35,7 +37,7 @@ func (t AscTorrents) Len() int {
 }
 
 func (t AscTorrents) Less(i, j int) bool {
-	return t[i].Length < t[j].Length
+	return t[i].Bytes < t[j].Bytes
 }
 
 func (t AscTorrents) Swap(i, j int) {
@@ -49,7 +51,7 @@ func (t DeTorrents) Len() int {
 }
 
 func (t DeTorrents) Less(i, j int) bool {
-	return t[i].Length > t[j].Length
+	return t[i].Bytes > t[j].Bytes
 }
 
 func (t DeTorrents) Swap(i, j int) {

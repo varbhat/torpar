@@ -86,13 +86,13 @@ func sortAsc(g *gocui.Gui, v *gocui.View) error {
 		maxlentl := int(float64(maxX) / 1.35)
 		tw := tabwriter.NewWriter(v, 0, 0, 1, ' ', 0)
 		t := tabby.NewCustom(tw)
-		t.AddLine(term_res+"#", term_res+"Name", term_res+"Size", term_res+"Seeds", term_res+"Leeches"+term_res)
+		t.AddLine(term_res+"#", term_res+"Name", term_res+"Size", term_res+"Seeds", term_res+"Peers"+term_res)
 		for idno, eachtorrent := range torrents {
 			t.AddLine(term_yell+strconv.Itoa(idno+1),
-				term_cyan+maxstring(eachtorrent.Text, maxlentl),
-				term_purp+fmt.Sprintf("%f", 0.000000001*eachtorrent.Length)+" GB",
-				term_green+"S:"+strconv.Itoa(eachtorrent.Seeds),
-				term_red+"L:"+strconv.Itoa(eachtorrent.Leechs)+term_res)
+				term_cyan+maxstring(eachtorrent.Title, maxlentl),
+				term_purp+fmt.Sprintf("%.2f", float64(eachtorrent.Bytes)*1e-9)+" GB",
+				term_green+"S:"+strconv.Itoa(eachtorrent.Seeders),
+				term_red+"P:"+strconv.Itoa(eachtorrent.Peers)+term_res)
 		}
 		t.Print()
 	}
@@ -107,13 +107,13 @@ func sortDec(g *gocui.Gui, v *gocui.View) error {
 		maxlentl := int(float64(maxX) / 1.35)
 		tw := tabwriter.NewWriter(v, 0, 0, 1, ' ', 0)
 		t := tabby.NewCustom(tw)
-		t.AddLine(term_res+"#", term_res+"Name", term_res+"Size", term_res+"Seeds", term_res+"Leeches"+term_res)
+		t.AddLine(term_res+"#", term_res+"Name", term_res+"Size", term_res+"Seeds", term_res+"Peers"+term_res)
 		for idno, eachtorrent := range torrents {
 			t.AddLine(term_yell+strconv.Itoa(idno+1),
-				term_cyan+maxstring(eachtorrent.Text, maxlentl),
-				term_purp+fmt.Sprintf("%f", 0.000000001*eachtorrent.Length)+" GB",
-				term_green+"S:"+strconv.Itoa(eachtorrent.Seeds),
-				term_red+"L:"+strconv.Itoa(eachtorrent.Leechs)+term_res)
+				term_cyan+maxstring(eachtorrent.Title, maxlentl),
+				term_purp+fmt.Sprintf("%.2f", float64(eachtorrent.Bytes)*1e-9)+" GB",
+				term_green+"S:"+strconv.Itoa(eachtorrent.Seeders),
+				term_red+"P:"+strconv.Itoa(eachtorrent.Peers)+term_res)
 		}
 		t.Print()
 	}

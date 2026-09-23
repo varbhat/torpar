@@ -26,21 +26,21 @@ func torrentdatawrite(g *gocui.Gui) error {
 	case 2:
 		// Write CSV with torrent details(with magnet with trackers) to the file
 		csvw := csv.NewWriter(datafile)
-		csvw.Write([]string{"Id", "Name", "Size", "Seeds", "Leeches", "Infohash", "Magnet"})
+		csvw.Write([]string{"Id", "Name", "Size", "Seeders", "Peers", "Infohash", "Magnet"})
 		for cidno, ceacht := range torrents {
 			csvw.Write(
 				[]string{
 					strconv.Itoa(cidno),
-					ceacht.Text,
-					fmt.Sprintf("%f", ceacht.Length),
-					strconv.Itoa(ceacht.Seeds),
-					strconv.Itoa(ceacht.Leechs),
-					ceacht.Id,
-					magnetheader + ceacht.Id + trackerurl,
+					ceacht.Title,
+					fmt.Sprintf("%d", ceacht.Bytes),
+					strconv.Itoa(ceacht.Seeders),
+					strconv.Itoa(ceacht.Peers),
+					ceacht.Hash,
+					magnetFor(ceacht),
 				})
 		}
-		csvw.Flush() // Flushing is necessary when csv.Writer.Write() is used
-		if csverr := csvw.Error(); err != nil {
+		csvw.Flush()
+		if csverr := csvw.Error(); csverr != nil {
 			errorui = csverr
 			g.SetManagerFunc(errorfunc)
 		}
@@ -48,7 +48,7 @@ func torrentdatawrite(g *gocui.Gui) error {
 	case 3:
 		// Write Magnet Links to the file. That's it
 		for _, ceacht := range torrents {
-			if _, fprinterr := fmt.Fprintln(datafile, magnetheader+ceacht.Id+trackerurl); err != nil {
+			if _, fprinterr := fmt.Fprintln(datafile, magnetFor(ceacht)); fprinterr != nil {
 				errorui = fprinterr
 				g.SetManagerFunc(errorfunc)
 			}
@@ -56,34 +56,34 @@ func torrentdatawrite(g *gocui.Gui) error {
 
 	case 4:
 		// Write magnet link of selected torrent
-		if _, fprinterr := fmt.Fprintln(datafile, magnetheader+torrents[selid].Id+trackerurl); err != nil {
+		if _, fprinterr := fmt.Fprintln(datafile, magnetFor(torrents[selid])); fprinterr != nil {
 			errorui = fprinterr
 			g.SetManagerFunc(errorfunc)
 		}
 	case 5:
 		// Write Torrent details of selected torrent
-		if _, fprinterr := fmt.Fprint(datafile, "Name: "+torrents[selid].Text, "\nSize: ", torrents[selid].Length, "\nSeeds: ", torrents[selid].Seeds, "\nLeechs: ", torrents[selid].Leechs, "\nInfohash: ", torrents[selid].Id, "\n\nMagnet: \n\n", magnetheader+torrents[selid].Id+trackerurl); err != nil {
+		if _, fprinterr := fmt.Fprint(datafile, "Name: "+torrents[selid].Title, "\nSize: ", torrents[selid].Bytes, "\nSeeders: ", torrents[selid].Seeders, "\nPeers: ", torrents[selid].Peers, "\nInfohash: ", torrents[selid].Hash, "\n\nMagnet: \n\n", magnetFor(torrents[selid])); fprinterr != nil {
 			errorui = fprinterr
 			g.SetManagerFunc(errorfunc)
 		}
 	default:
 		// Write CSV data of torrent to the file
 		csvw := csv.NewWriter(datafile)
-		csvw.Write([]string{"Id", "Name", "Size", "Seeds", "Leeches", "Infohash", "Magnet"})
+		csvw.Write([]string{"Id", "Name", "Size", "Seeders", "Peers", "Infohash", "Magnet"})
 		for cidno, ceacht := range torrents {
 			csvw.Write(
 				[]string{
 					strconv.Itoa(cidno),
-					ceacht.Text,
-					fmt.Sprintf("%f", ceacht.Length),
-					strconv.Itoa(ceacht.Seeds),
-					strconv.Itoa(ceacht.Leechs),
-					ceacht.Id,
-					magnetheader + ceacht.Id,
+					ceacht.Title,
+					fmt.Sprintf("%d", ceacht.Bytes),
+					strconv.Itoa(ceacht.Seeders),
+					strconv.Itoa(ceacht.Peers),
+					ceacht.Hash,
+					magnetFor(ceacht),
 				})
 		}
-		csvw.Flush() // Flushing is necessary when csv.Writer.Write() is used
-		if csverr := csvw.Error(); err != nil {
+		csvw.Flush()
+		if csverr := csvw.Error(); csverr != nil {
 			errorui = csverr
 			g.SetManagerFunc(errorfunc)
 		}

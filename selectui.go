@@ -54,16 +54,16 @@ func selectfunc(g *gocui.Gui) error {
 		selwid.Wrap = true
 		selwid.MoveCursor(maxX-1, 0, true)
 
-		magnet := magnetheader + torrents[selid].Id + trackerurl
+		magnet := magnetFor(torrents[selid])
 
 		fmt.Fprintln(selwid, term_yell+"Torrent Details for Torrent ", selid+1, " →"+term_res)
 		tw := tabwriter.NewWriter(selwid, 0, 0, 2, ' ', 0)
 		t := tabby.NewCustom(tw)
-		t.AddLine(term_res+"\u2022 Name"+term_cyan, torrents[selid].Text)
-		t.AddLine(term_res+"\u2022 Size"+term_purp, torrents[selid].Length)
-		t.AddLine(term_res+"\u2022 Leechs"+term_red, torrents[selid].Leechs)
-		t.AddLine(term_res+"\u2022 Infohash"+term_cyan, torrents[selid].Leechs)
-		t.AddLine(term_res+"\u2022 Magnet"+term_green, magnetheader+torrents[selid].Id)
+		t.AddLine(term_res+"\u2022 Name"+term_cyan, torrents[selid].Title)
+		t.AddLine(term_res+"\u2022 Size"+term_purp, fmt.Sprintf("%.2f GB", float64(torrents[selid].Bytes)*1e-9))
+		t.AddLine(term_res+"\u2022 Peers"+term_red, torrents[selid].Peers)
+		t.AddLine(term_res+"\u2022 Infohash"+term_cyan, torrents[selid].Hash)
+		t.AddLine(term_res+"\u2022 Magnet"+term_green, magnet)
 		t.AddLine(term_res+"\u2022 Trackerlist URL"+term_purp, trackerlisturl)
 		t.AddLine(term_res, term_res)
 		t.Print()

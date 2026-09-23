@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/url"
 	"strconv"
 	"strings"
 	"text/tabwriter"
@@ -32,18 +31,23 @@ func torparadise(g *gocui.Gui) error {
 		return nil
 	}
 
-	// construct API URL
-	finalquery := apistr + url.QueryEscape(query)
+	// Build POST body for Knaben API
+	reqBody, _ := json.Marshal(map[string]interface{}{
+		"query":           query,
+		"order_by":        "seeders",
+		"order_direction": "desc",
+		"size":            150,
+		"hide_unsafe":     true,
+	})
 
-	// Query the Torrent Paradise API to get result as response
-	response, err := http.Get(finalquery)
+	response, err := http.Post(apistr, "application/json", strings.NewReader(string(reqBody)))
 	if err != nil {
 		errorui = err
 		g.SetManagerFunc(errorfunc)
 		return nil
 	}
+	defer response.Body.Close()
 
-	// Read JSON Response
 	respbody, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		errorui = err
@@ -51,13 +55,15 @@ func torparadise(g *gocui.Gui) error {
 		return nil
 	}
 
-	// Parse the json response into []Torrent
-	err = json.Unmarshal([]byte(respbody), &torrents)
-	if err != nil {
+	var result struct {
+		Hits []Torrent `json:"hits"`
+	}
+	if err = json.Unmarshal(respbody, &result); err != nil {
 		errorui = err
 		g.SetManagerFunc(errorfunc)
-
+		return nil
 	}
+	torrents = result.Hits
 
 	if len(torrents) == 0 {
 		errorui = errors.New("No Results")
@@ -133,13 +139,13 @@ func searchlisttor(g *gocui.Gui) error {
 			maxlentl := int(float64(maxX) / 1.35)
 			tw := tabwriter.NewWriter(tllist, 0, 0, 1, ' ', 0)
 			t := tabby.NewCustom(tw)
-			t.AddLine(term_res+"#", term_res+"Name", term_res+"Size", term_res+"Seeds", term_res+"Leeches"+term_res)
+			t.AddLine(term_res+"#", term_res+"Name", term_res+"Size", term_res+"Seeds", term_res+"Peers"+term_res)
 			for idno, eachtorrent := range torrents {
 				t.AddLine(term_yell+strconv.Itoa(idno+1),
-					term_cyan+maxstring(eachtorrent.Text, maxlentl),
-					term_purp+fmt.Sprintf("%f", 0.000000001*eachtorrent.Length)+" GB",
-					term_green+"S:"+strconv.Itoa(eachtorrent.Seeds),
-					term_red+"L:"+strconv.Itoa(eachtorrent.Leechs)+term_res)
+					term_cyan+maxstring(eachtorrent.Title, maxlentl),
+					term_purp+fmt.Sprintf("%.2f", float64(eachtorrent.Bytes)*1e-9)+" GB",
+					term_green+"S:"+strconv.Itoa(eachtorrent.Seeders),
+					term_red+"P:"+strconv.Itoa(eachtorrent.Peers)+term_res)
 			}
 			t.Print()
 		}
