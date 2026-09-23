@@ -2,7 +2,7 @@
 <p align="center">TUI Client for <a href="https://knaben.org">Knaben Database</a></p>
 
 ## Introduction
-`torpar` is a TUI client for [Knaben Database](https://knaben.org), a torrent search engine aggregating multiple indexers via Elasticsearch.
+`torpar` is a TUI client for [Knaben Database](https://knaben.org), a torrent aggregator.
 
 ## Installation
 
